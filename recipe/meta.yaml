@@ -27,7 +27,7 @@ source:
     - patches/14_remove_static_libs.patch
 
 build:
-  number: 5
+  number: 6
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm
