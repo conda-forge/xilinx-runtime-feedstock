@@ -8,36 +8,36 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_openssl1.1.1python3.10.____cpython:
-        CONFIG: linux_64_openssl1.1.1python3.10.____cpython
+      linux_64_libprotobuf3.21python3.10.____cpython:
+        CONFIG: linux_64_libprotobuf3.21python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl1.1.1python3.11.____cpython:
-        CONFIG: linux_64_openssl1.1.1python3.11.____cpython
+      linux_64_libprotobuf3.21python3.11.____cpython:
+        CONFIG: linux_64_libprotobuf3.21python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl1.1.1python3.8.____cpython:
-        CONFIG: linux_64_openssl1.1.1python3.8.____cpython
+      linux_64_libprotobuf3.21python3.8.____cpython:
+        CONFIG: linux_64_libprotobuf3.21python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl1.1.1python3.9.____cpython:
-        CONFIG: linux_64_openssl1.1.1python3.9.____cpython
+      linux_64_libprotobuf3.21python3.9.____cpython:
+        CONFIG: linux_64_libprotobuf3.21python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl3python3.10.____cpython:
-        CONFIG: linux_64_openssl3python3.10.____cpython
+      linux_64_libprotobuf4.23.2python3.10.____cpython:
+        CONFIG: linux_64_libprotobuf4.23.2python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl3python3.11.____cpython:
-        CONFIG: linux_64_openssl3python3.11.____cpython
+      linux_64_libprotobuf4.23.2python3.11.____cpython:
+        CONFIG: linux_64_libprotobuf4.23.2python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl3python3.8.____cpython:
-        CONFIG: linux_64_openssl3python3.8.____cpython
+      linux_64_libprotobuf4.23.2python3.8.____cpython:
+        CONFIG: linux_64_libprotobuf4.23.2python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-      linux_64_openssl3python3.9.____cpython:
-        CONFIG: linux_64_openssl3python3.9.____cpython
+      linux_64_libprotobuf4.23.2python3.9.____cpython:
+        CONFIG: linux_64_libprotobuf4.23.2python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360
