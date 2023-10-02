@@ -27,7 +27,7 @@ source:
     - patches/14_remove_static_libs.patch
 
 build:
-  number: 8
+  number: 9
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm
@@ -47,8 +47,8 @@ requirements:
   host:
     - python
     - pybind11
-    - boost
-    - boost-cpp
+    - libboost-python-devel
+    - libboost-devel
     - protobuf
     - libprotobuf
     - rapidjson
@@ -61,8 +61,7 @@ requirements:
 
   run:
     - python
-    - boost
-    - boost-cpp
+    - libboost-python-devel
 
 test:
   imports:
