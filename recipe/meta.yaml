@@ -47,7 +47,6 @@ requirements:
   host:
     - python
     - pybind11
-    - libboost-python-devel
     - libboost-devel
     - protobuf
     - libprotobuf
@@ -61,7 +60,6 @@ requirements:
 
   run:
     - python
-    - libboost-python-devel
 
 test:
   imports:
