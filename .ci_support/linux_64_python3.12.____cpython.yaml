@@ -19,7 +19,7 @@ libboost_devel:
 libcurl:
 - '8'
 libprotobuf:
-- 4.24.4
+- 4.25.2
 libuuid:
 - '2'
 ncurses:
