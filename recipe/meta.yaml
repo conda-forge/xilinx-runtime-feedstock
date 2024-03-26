@@ -27,7 +27,7 @@ source:
     - patches/14_remove_static_libs.patch
 
 build:
-  number: 11
+  number: 12
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm
@@ -38,6 +38,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
