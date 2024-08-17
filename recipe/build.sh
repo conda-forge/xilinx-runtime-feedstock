@@ -1,5 +1,5 @@
 #!/bin/env/bash
-set -e
+set -ex
 
 # Hack so ensure that the correct
 # version info is printed
@@ -13,6 +13,7 @@ cmake \
   -B $SRC_DIR/build-release  \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_SKIP_INSTALL_RPATH=ON \
+  -DOPENCL_ROOT="${PREFIX}" \
   -DXRT_STATIC_COMPONENT=xrt-static
 
 cmake --build $SRC_DIR/build-release --parallel ${CPU_COUNT}
