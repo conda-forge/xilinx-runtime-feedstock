@@ -1,7 +1,7 @@
 From b9ba214bd1c1226b09cfa110af46a2dca98ee592 Mon Sep 17 00:00:00 2001
 From: bryanloz <bryanloz@xilinx.com>
 Date: Sat, 2 Jul 2022 14:42:55 -0600
-Subject: [PATCH 02/15] xspi array patch
+Subject: [PATCH 02/16] xspi array patch
 
 ---
  src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp | 1 +

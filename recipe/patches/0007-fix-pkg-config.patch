@@ -1,7 +1,7 @@
 From a134f4a6126eccb5fc3ff0c6a6c58e0b9c0350f9 Mon Sep 17 00:00:00 2001
 From: bryanloz <bryanloz@xilinx.com>
 Date: Sat, 2 Jul 2022 14:42:55 -0600
-Subject: [PATCH 07/15] fix pkg config
+Subject: [PATCH 07/16] fix pkg config
 
 ---
  src/CMake/pkgconfig.cmake | 8 +-------

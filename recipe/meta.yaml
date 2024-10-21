@@ -25,6 +25,7 @@ source:
     - patches/0013-no-setup-script.patch
     - patches/0014-fix-appdebug-install.patch
     - patches/0015-remove-static-libs.patch
+    - patches/0016-rely-on-pkg-config-metadata-for-finding-OpenCL.patch
 
 build:
   number: 13

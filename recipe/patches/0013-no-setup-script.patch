@@ -1,7 +1,7 @@
 From 3eceeb4e3b4ac813b1bbb6852878d690674e2cc5 Mon Sep 17 00:00:00 2001
 From: bryanloz <bryanloz@xilinx.com>
 Date: Sat, 2 Jul 2022 14:42:55 -0600
-Subject: [PATCH 13/15] no setup script
+Subject: [PATCH 13/16] no setup script
 
 ---
  src/runtime_src/tools/scripts/CMakeLists.txt |  1 -

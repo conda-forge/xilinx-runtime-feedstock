@@ -1,7 +1,7 @@
 From 0cf829f1e010dbf3c70119bbebd7206df3acaee2 Mon Sep 17 00:00:00 2001
 From: bryanloz <bryanloz@xilinx.com>
 Date: Sat, 2 Jul 2022 14:42:55 -0600
-Subject: [PATCH 05/15] no static linkage
+Subject: [PATCH 05/16] no static linkage
 
 ---
  src/CMake/nativeLnx.cmake | 13 -------------

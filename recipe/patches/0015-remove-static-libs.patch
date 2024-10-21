@@ -1,7 +1,7 @@
 From 3bbf957f4fb1d3b7daad46bcb126aeaf1583ce02 Mon Sep 17 00:00:00 2001
 From: bryanloz <bryanloz@xilinx.com>
 Date: Sun, 3 Jul 2022 00:22:09 -0600
-Subject: [PATCH 15/15] remove static libs
+Subject: [PATCH 15/16] remove static libs
 
 ---
  src/CMake/cpackLin.cmake                             | 12 ++++++++++++
