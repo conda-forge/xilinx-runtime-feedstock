@@ -1,0 +1,33 @@
+From 0cf829f1e010dbf3c70119bbebd7206df3acaee2 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 05/15] no static linkage
+
+---
+ src/CMake/nativeLnx.cmake | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/src/CMake/nativeLnx.cmake b/src/CMake/nativeLnx.cmake
+index b4ccf8f05..6f6bd2e29 100644
+--- a/src/CMake/nativeLnx.cmake
++++ b/src/CMake/nativeLnx.cmake
+@@ -59,19 +59,6 @@ execute_process(COMMAND ${UNAME} -r
+   OUTPUT_STRIP_TRAILING_WHITESPACE
+   )
+ 
+-# Static linking creates and installs static tools and libraries. The
+-# static libraries have system boost dependencies which must be
+-# resolved in final target.  The tools (currently xbutil2 and xbmgmt2)
+-# will be statically linked.  Enabled only for ubuntu.
+-option(XRT_STATIC_BUILD "Enable static building of XRT" OFF)
+-if ( (${CMAKE_VERSION} VERSION_GREATER "3.16.0")
+-    AND (${XRT_NATIVE_BUILD} STREQUAL "yes")
+-    AND (${LINUX_FLAVOR} MATCHES "^(Ubuntu)")
+-    )
+-  message("-- Enabling static artifacts of XRT")
+-  set(XRT_STATIC_BUILD ON)
+-endif()
+-
+ # --- Boost ---
+ #set(Boost_DEBUG 1)
+ 

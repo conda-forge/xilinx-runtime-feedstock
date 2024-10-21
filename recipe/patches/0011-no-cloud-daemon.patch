@@ -1,0 +1,21 @@
+From ab88466b9f9256fb5cc4ea1c498bb520a1bbd34f Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 11/15] no cloud daemon
+
+---
+ src/runtime_src/core/pcie/tools/CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/runtime_src/core/pcie/tools/CMakeLists.txt b/src/runtime_src/core/pcie/tools/CMakeLists.txt
+index 1e9fec54d..14a84e156 100644
+--- a/src/runtime_src/core/pcie/tools/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/tools/CMakeLists.txt
+@@ -4,7 +4,6 @@
+ if(NOT WIN32)
+   add_subdirectory(xbutil)
+   add_subdirectory(xbmgmt)
+-  add_subdirectory(cloud-daemon)
+   add_subdirectory(xbflash.qspi)
+ endif(NOT WIN32)
+ 

@@ -1,0 +1,47 @@
+From b9ba214bd1c1226b09cfa110af46a2dca98ee592 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 02/15] xspi array patch
+
+---
+ src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp | 1 +
+ src/runtime_src/core/pcie/tools/xbflash.qspi/xspi.cpp    | 1 +
+ src/runtime_src/core/pcie/tools/xbmgmt/xqspips.cpp       | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp b/src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp
+index 93d771b1b..c4af022a1 100644
+--- a/src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp
++++ b/src/runtime_src/core/pcie/tools/xbflash.qspi/xqspips.cpp
+@@ -15,6 +15,7 @@
+  * under the License.
+  */
+ 
++#include <array>
+ #include <fstream>
+ #include <iostream>
+ #include <cassert>
+diff --git a/src/runtime_src/core/pcie/tools/xbflash.qspi/xspi.cpp b/src/runtime_src/core/pcie/tools/xbflash.qspi/xspi.cpp
+index 014696b74..a3c53e3a3 100644
+--- a/src/runtime_src/core/pcie/tools/xbflash.qspi/xspi.cpp
++++ b/src/runtime_src/core/pcie/tools/xbflash.qspi/xspi.cpp
+@@ -14,6 +14,7 @@
+  * under the License.
+  */
+ 
++#include <array>
+ #include <iostream>
+ #include <string>
+ #include <cassert>
+diff --git a/src/runtime_src/core/pcie/tools/xbmgmt/xqspips.cpp b/src/runtime_src/core/pcie/tools/xbmgmt/xqspips.cpp
+index 48a6e97ac..ba9e9d126 100644
+--- a/src/runtime_src/core/pcie/tools/xbmgmt/xqspips.cpp
++++ b/src/runtime_src/core/pcie/tools/xbmgmt/xqspips.cpp
+@@ -15,6 +15,7 @@
+  * under the License.
+  */
+ 
++#include <array>
+ #include <fstream>
+ #include <iostream>
+ #include <cassert>

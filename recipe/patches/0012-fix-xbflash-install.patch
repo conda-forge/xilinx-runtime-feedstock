@@ -1,0 +1,36 @@
+From 842e00380b5d05198742a689beb3b448db4afa2a Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 12/15] fix xbflash install
+
+---
+ src/runtime_src/core/pcie/tools/xbflash.qspi/CMakeLists.txt | 2 +-
+ src/runtime_src/core/tools/xbflash2/CMakeLists.txt          | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/runtime_src/core/pcie/tools/xbflash.qspi/CMakeLists.txt b/src/runtime_src/core/pcie/tools/xbflash.qspi/CMakeLists.txt
+index 3cf16d3ac..3e478a27c 100644
+--- a/src/runtime_src/core/pcie/tools/xbflash.qspi/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/tools/xbflash.qspi/CMakeLists.txt
+@@ -15,7 +15,7 @@ file(GLOB XBFLASH_QSPI_FILES
+ set(XBFLASH_QSPI_SRC ${XBFLASH_QSPI_FILES})
+ set(XBFLASH_NAME "xbflash.qspi")
+ set(XBFLASH_NAME_NEW "xbflash")
+-set(XBFLASH_INSTALL_DEST "/usr/local/bin")
++set(XBFLASH_INSTALL_DEST "${XRT_INSTALL_BIN_DIR}")
+ set(XBFLASH_COMPONENT "xbflash")
+ 
+ add_executable(${XBFLASH_NAME} ${XBFLASH_QSPI_SRC})
+diff --git a/src/runtime_src/core/tools/xbflash2/CMakeLists.txt b/src/runtime_src/core/tools/xbflash2/CMakeLists.txt
+index 0d09dfa4b..6435786c1 100755
+--- a/src/runtime_src/core/tools/xbflash2/CMakeLists.txt
++++ b/src/runtime_src/core/tools/xbflash2/CMakeLists.txt
+@@ -28,7 +28,7 @@ file(GLOB XBFLASH_QSPI_FILES
+ 
+ set(XBFLASH_QSPI_SRC ${XBFLASH_BASE_FILES} ${XBFLASH_QSPI_FILES})
+ set(XBFLASH_NAME "xbflash2")
+-set(XBFLASH_INSTALL_DEST "/usr/local/bin")
++set(XBFLASH_INSTALL_DEST "${XRT_INSTALL_BIN_DIR}")
+ set(XBFLASH_COMPONENT "xbflash2")
+ 
+ add_executable(${XBFLASH_NAME} ${XBFLASH_QSPI_SRC})

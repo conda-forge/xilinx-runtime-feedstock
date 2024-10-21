@@ -1,0 +1,216 @@
+From 3bbf957f4fb1d3b7daad46bcb126aeaf1583ce02 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sun, 3 Jul 2022 00:22:09 -0600
+Subject: [PATCH 15/15] remove static libs
+
+---
+ src/CMake/cpackLin.cmake                             | 12 ++++++++++++
+ src/CMakeLists.txt                                   | 10 +++++++++-
+ src/runtime_src/core/common/CMakeLists.txt           |  8 +++++++-
+ .../core/pcie/emulation/cpu_em/CMakeLists.txt        |  8 +++++++-
+ .../core/pcie/emulation/hw_em/CMakeLists.txt         |  7 ++++++-
+ src/runtime_src/core/pcie/linux/CMakeLists.txt       |  8 +++++++-
+ .../core/pcie/windows/mcdm/CMakeLists.txt            |  8 +++++++-
+ src/runtime_src/xocl/CMakeLists.txt                  |  8 +++++++-
+ src/runtime_src/xrt/CMakeLists.txt                   |  8 +++++++-
+ 9 files changed, 69 insertions(+), 8 deletions(-)
+
+diff --git a/src/CMake/cpackLin.cmake b/src/CMake/cpackLin.cmake
+index 1cae1fcef..a0d78b244 100644
+--- a/src/CMake/cpackLin.cmake
++++ b/src/CMake/cpackLin.cmake
+@@ -73,6 +73,12 @@ if (${LINUX_FLAVOR} MATCHES "^(Ubuntu|Debian)")
+       uuid-dev (>= 2.27.1)")
+   endif()
+ 
++  if (NOT ${XRT_SHARED_COMPONENT} STREQUAL "xrt")
++     SET(CPACK_DEBIAN_XRT-SHARED_PACKAGE_NAME ${XRT_SHARED_COMPONENT})
++     SET(CPACK_DEBIAN_XRT-SHARED_PACKAGE_DEPENDS
++       "${XRT_DEV_COMPONENT} (>= ${XRT_VERSION_MAJOR}.${XRT_VERSION_MINOR}.${XRT_VERSION_PATCH})" )
++   endif()
++
+   if (DEFINED CROSS_COMPILE)
+     if (${aarch} STREQUAL "aarch64")
+       SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "arm64")
+@@ -128,6 +134,12 @@ elseif (${LINUX_FLAVOR} MATCHES "^(RedHat|CentOS|Amazon|Fedora|SUSE)")
+     SET(CPACK_RPM_XRT-DEV_PACKAGE_REQUIRES "xrt >= ${XRT_VERSION_MAJOR}.${XRT_VERSION_MINOR}.${XRT_VERSION_PATCH}, ocl-icd-devel >= 2.2, libuuid-devel >= 2.23.2")
+   endif()
+ 
++  if (NOT ${XRT_SHARED_COMPONENT} STREQUAL "xrt")
++     SET(CPACK_RPM_XRT-SHARED_PACKAGE_NAME ${XRT_SHARED_COMPONENT})
++     SET(CPACK_RPM_XRT-SHARED_PACKAGE_DEPENDS
++       "${XRT_DEV_COMPONENT} >= ${XRT_VERSION_MAJOR}.${XRT_VERSION_MINOR}.${XRT_VERSION_PATCH}" )
++   endif()
++
+   if (DEFINED CROSS_COMPILE)
+     if (${aarch} STREQUAL "aarch64")
+       SET(CPACK_RPM_PACKAGE_ARCHITECTURE "aarch64")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 664f4e816..38d7353e0 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -87,7 +87,15 @@ set (CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "xrt")
+ # If XRT_DEV_COMPONENT is same DEFAULT_COMPONENT then only that package
+ # is created with both development and run-time content.
+ #set (XRT_DEV_COMPONENT "xrt-dev")
+-set (XRT_DEV_COMPONENT "xrt")
++set (XRT_DEV_COMPONENT "xrt" CACHE STRING "Set to 'xrt-dev' to split dev artifacts into separate component&package")
++
++# Enable static package by setting XRT_STATIC_COMPONENT to "xrt-static"
++# If XRT_STATIC_COMPONENT is same DEFAULT_COMPONENT then only that package
++# is created with both dynamic and static content
++# It should also be possible to set it to "xrt-dev" if you have XRT_DEV_COMPONENT
++# set to "xrt-dev" and you want to bundle the static librares into the development package.
++#set (XRT_STATIC_COMPONENT "xrt-static"
++set (XRT_STATIC_COMPONENT "xrt" CACHE STRING "Set to 'xrt-static' to split dev artifacts into separate component&package")
+ 
+ set (XRT_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+ 
+diff --git a/src/runtime_src/core/common/CMakeLists.txt b/src/runtime_src/core/common/CMakeLists.txt
+index 94c5aeae1..5984076d6 100644
+--- a/src/runtime_src/core/common/CMakeLists.txt
++++ b/src/runtime_src/core/common/CMakeLists.txt
+@@ -86,12 +86,18 @@ install(TARGETS xrt_coreutil
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install(TARGETS xrt_coreutil xrt_coreutil_static
++install(TARGETS xrt_coreutil
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
+ 
++install(TARGETS xrt_coreutil_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
++
+ # The scheduler object files are for auto config of scheduler. These
+ # files reference xrt_core symbols, hence are excluded from
+ # xrt_corecommon shared library and instead linked explicitly into
+diff --git a/src/runtime_src/core/pcie/emulation/cpu_em/CMakeLists.txt b/src/runtime_src/core/pcie/emulation/cpu_em/CMakeLists.txt
+index 30c86cbb8..4baba33ab 100644
+--- a/src/runtime_src/core/pcie/emulation/cpu_em/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/emulation/cpu_em/CMakeLists.txt
+@@ -67,8 +67,14 @@ install (TARGETS xrt_swemu
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install (TARGETS xrt_swemu xrt_swemu_static
++install (TARGETS xrt_swemu
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
++
++install (TARGETS xrt_swemu_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
+diff --git a/src/runtime_src/core/pcie/emulation/hw_em/CMakeLists.txt b/src/runtime_src/core/pcie/emulation/hw_em/CMakeLists.txt
+index cbeccd631..35d51c572 100644
+--- a/src/runtime_src/core/pcie/emulation/hw_em/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/emulation/hw_em/CMakeLists.txt
+@@ -71,9 +71,14 @@ install (TARGETS xrt_hwemu
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install (TARGETS xrt_hwemu xrt_hwemu_static
++install (TARGETS xrt_hwemu
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
+ 
++install (TARGETS xrt_hwemu_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
+diff --git a/src/runtime_src/core/pcie/linux/CMakeLists.txt b/src/runtime_src/core/pcie/linux/CMakeLists.txt
+index c6e0bf2a5..7faf8a5eb 100644
+--- a/src/runtime_src/core/pcie/linux/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/linux/CMakeLists.txt
+@@ -79,8 +79,14 @@ install(TARGETS xrt_core
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install(TARGETS xrt_core xrt_core_static
++install(TARGETS xrt_core
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
++
++install(TARGETS xrt_core_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
+diff --git a/src/runtime_src/core/pcie/windows/mcdm/CMakeLists.txt b/src/runtime_src/core/pcie/windows/mcdm/CMakeLists.txt
+index 314131607..6abcf35c3 100644
+--- a/src/runtime_src/core/pcie/windows/mcdm/CMakeLists.txt
++++ b/src/runtime_src/core/pcie/windows/mcdm/CMakeLists.txt
+@@ -52,8 +52,14 @@ install(TARGETS xrt_core
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install(TARGETS xrt_core xrt_core_static
++install(TARGETS xrt_core
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
++
++install(TARGETS xrt_core_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
+diff --git a/src/runtime_src/xocl/CMakeLists.txt b/src/runtime_src/xocl/CMakeLists.txt
+index d67cf22de..a2c4b3e94 100644
+--- a/src/runtime_src/xocl/CMakeLists.txt
++++ b/src/runtime_src/xocl/CMakeLists.txt
+@@ -106,12 +106,18 @@ install(TARGETS xilinxopencl
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install(TARGETS xilinxopencl xilinxopencl_static
++install(TARGETS xilinxopencl
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
+ 
++install(TARGETS xilinxopencl_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)
++
+ # Release OpenCL extension headers
+ install (FILES
+   ${XRT_SRC_DIR}/include/1_2/CL/cl_ext_xilinx.h
+diff --git a/src/runtime_src/xrt/CMakeLists.txt b/src/runtime_src/xrt/CMakeLists.txt
+index 75847681a..d56cd7801 100644
+--- a/src/runtime_src/xrt/CMakeLists.txt
++++ b/src/runtime_src/xrt/CMakeLists.txt
+@@ -68,8 +68,14 @@ install(TARGETS xrt++
+   RUNTIME DESTINATION ${XRT_INSTALL_BIN_DIR}
+ )
+ 
+-install(TARGETS xrt++ xrt++_static
++install(TARGETS xrt++
+   EXPORT xrt-dev-targets
+   ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT}
+   LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_DEV_COMPONENT} ${XRT_NAMELINK_ONLY}
+ )
++
++install(TARGETS xrt++_static
++  EXPORT xrt-static-targets
++  ARCHIVE DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT}
++  LIBRARY DESTINATION ${XRT_INSTALL_LIB_DIR} COMPONENT ${XRT_STATIC_COMPONENT} ${XRT_NAMELINK_ONLY}
++)

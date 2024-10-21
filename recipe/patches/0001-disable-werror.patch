@@ -1,0 +1,22 @@
+From f12e9a438f4c774edd38be57d798749189334b2c Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 01/15] disable werror
+
+---
+ src/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 876415a78..6deda2c42 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -48,7 +48,7 @@ if ( ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
+   -Wno-overloaded-virtual
+    )
+ else()
+-  set(XRT_WARN_OPTS -Wall -Werror )
++  set(XRT_WARN_OPTS -Wall)
+ endif()
+ 
+ if (DEFINED ENV{XRT_NATIVE_BUILD})
