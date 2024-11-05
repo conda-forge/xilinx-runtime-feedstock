@@ -10,24 +10,25 @@ source:
   url: https://github.com/Xilinx/XRT/archive/refs/tags/{{ quarter }}.{{ version }}.tar.gz
   sha256: d73d8366f6f6d66bfdcb67e72135f559a4d95644c5416c27dea79c235953fd20
   patches:
-    - patches/00_disable_werror.patch
-    - patches/01_xspi_std_array.patch
-    - patches/02_prid64_macro_usage.patch
-    - patches/03_icd.patch
-    - patches/04_no_static_linkage.patch
-    - patches/05_fix_python_rm_dkms_general_cmake.patch
-    - patches/06_fix_pkg_config.patch
-    - patches/07_no_version_for_dkms.patch
-    - patches/08_fix_cmake_install_prefix.patch
-    - patches/09_fix_ocl.patch
-    - patches/10_no_cloud_daemon.patch
-    - patches/11_fix_xbflash_install.patch
-    - patches/12_no_setup_script.patch
-    - patches/13_fix_appdebug_install.patch
-    - patches/14_remove_static_libs.patch
+    - patches/0001-disable-werror.patch
+    - patches/0002-xspi-array-patch.patch
+    - patches/0003-prid64-macro-usage.patch
+    - patches/0004-icd.patch
+    - patches/0005-no-static-linkage.patch
+    - patches/0006-fix-python-rm-dkms-general-cmake.patch
+    - patches/0007-fix-pkg-config.patch
+    - patches/0008-no-version-for-dkms.patch
+    - patches/0009-fix-cmake-install-prefix.patch
+    - patches/0010-fix-ocl.patch
+    - patches/0011-no-cloud-daemon.patch
+    - patches/0012-fix-xbflash-install.patch
+    - patches/0013-no-setup-script.patch
+    - patches/0014-fix-appdebug-install.patch
+    - patches/0015-remove-static-libs.patch
+    - patches/0016-rely-on-pkg-config-metadata-for-finding-OpenCL.patch
 
 build:
-  number: 12
+  number: 13
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm
@@ -38,6 +39,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]

@@ -1,0 +1,22 @@
+From 19d6ca6c59eb2bc088b9865db5086bd344d36d0f Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Tue, 22 Oct 2024 10:11:27 +1100
+Subject: [PATCH 16/16] rely on pkg-config metadata for finding OpenCL
+
+---
+ src/CMake/embedded_system.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/CMake/embedded_system.cmake b/src/CMake/embedded_system.cmake
+index 8ac411d61..19c0fb464 100644
+--- a/src/CMake/embedded_system.cmake
++++ b/src/CMake/embedded_system.cmake
+@@ -22,7 +22,7 @@ if (NOT DEFINED CROSS_COMPILE)
+ endif()
+ 
+ # OpenCL header files
+-find_package(OpenCL)
++find_package(OpenCL CONFIG)
+ IF(OPENCL_FOUND)
+   MESSAGE(STATUS "Looking for OPENCL - found at ${OPENCL_PREFIX} ${OPENCL_VERSION} ${OPENCL_INCLUDEDIR}")
+   INCLUDE_DIRECTORIES(${OPENCL_INCLUDEDIR})

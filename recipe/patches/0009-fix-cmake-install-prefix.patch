@@ -1,0 +1,24 @@
+From 9f1ea398a352c2171eda0bb1e4cd798b79ed32c2 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 09/16] fix cmake install prefix
+
+---
+ src/CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 104e0fa27..664f4e816 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -67,10 +67,6 @@ if (NOT CMAKE_BUILD_TYPE)
+   set (CMAKE_BUILD_TYPE RelWithDebInfo)
+ endif (NOT CMAKE_BUILD_TYPE)
+ 
+-set (CMAKE_INSTALL_PREFIX "/opt/xilinx")
+-if (${XRT_NATIVE_BUILD} STREQUAL "no")
+-  set (CMAKE_INSTALL_PREFIX "/usr")
+-endif()
+ 
+ # Enable AIE even on x86.  This is POC, once
+ # complete we will remove the need for these

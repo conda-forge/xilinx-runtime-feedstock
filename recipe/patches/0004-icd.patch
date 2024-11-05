@@ -1,0 +1,21 @@
+From 2a9e6aa4da2b4bfbfc0cacd1c971da48922b2dd2 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 04/16] icd
+
+---
+ src/CMake/icd.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/CMake/icd.cmake b/src/CMake/icd.cmake
+index 8a470407c..5537ef832 100644
+--- a/src/CMake/icd.cmake
++++ b/src/CMake/icd.cmake
+@@ -10,6 +10,6 @@ configure_file (
+   ${ICD_FILE_NAME}
+   )
+ 
+-set(OCL_ICD_INSTALL_PREFIX "/etc/OpenCL/vendors")
++set(OCL_ICD_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/etc/OpenCL/vendors")
+ 
+ install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${ICD_FILE_NAME} DESTINATION ${OCL_ICD_INSTALL_PREFIX})

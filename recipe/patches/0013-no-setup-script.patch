@@ -1,0 +1,46 @@
+From 3eceeb4e3b4ac813b1bbb6852878d690674e2cc5 Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 13/16] no setup script
+
+---
+ src/runtime_src/tools/scripts/CMakeLists.txt |  1 -
+ src/runtime_src/tools/scripts/loader         | 16 ----------------
+ 2 files changed, 17 deletions(-)
+
+diff --git a/src/runtime_src/tools/scripts/CMakeLists.txt b/src/runtime_src/tools/scripts/CMakeLists.txt
+index 09c8721b6..bb74bd2f7 100644
+--- a/src/runtime_src/tools/scripts/CMakeLists.txt
++++ b/src/runtime_src/tools/scripts/CMakeLists.txt
+@@ -25,4 +25,3 @@ endif(NOT WIN32)
+ 
+ install (PROGRAMS ${XRT_SCRIPTS} DESTINATION ${XRT_INSTALL_BIN_DIR})
+ install (PROGRAMS ${XRT_LOADER_SCRIPTS} DESTINATION ${XRT_INSTALL_UNWRAPPED_DIR})
+-install (FILES ${XRT_SETUP_SCRIPTS} DESTINATION ${XRT_INSTALL_DIR})
+diff --git a/src/runtime_src/tools/scripts/loader b/src/runtime_src/tools/scripts/loader
+index 636dc0807..7790f642d 100755
+--- a/src/runtime_src/tools/scripts/loader
++++ b/src/runtime_src/tools/scripts/loader
+@@ -41,22 +41,6 @@ if [ ! -f "${XRT_PROG_UNWRAPPED}" ]; then
+   exit 1
+ fi
+ 
+-# -- Find the setup script and configure environment
+-XRT_SETUP_SCRIPT="`dirname \"$0\"`/../../setup.sh"
+-
+-if [ ! -f "$XRT_SETUP_SCRIPT" ]; then
+-  echo "ERROR: Could not find XRT setup script."
+-  echo "ERROR: ${XRT_SETUP_SCRIPT} does not exist"
+-  exit 1
+-fi
+-
+-. "${XRT_SETUP_SCRIPT}" > /dev/null
+-
+-# XRT uses system librairies whereas Vitis and Vivado ship there own.
+-# when XRT tools are invoked from Vitis/Vivado the LD_LIBRARY_PATH will be set to use libraries shipped with Vitis/vivado
+-# so we reset the LD_LIBRARY_PATH to make XRT tool select the correct libraries.
+-LD_LIBRARY_PATH=$XILINX_XRT/lib:$(echo $LD_LIBRARY_PATH | tr ':' '\n' | grep -E -v "/(Vitis|Vivado).*/(lnx|lin)" | tr '\n' ':')
+-
+ # -- Execute the wrapped program
+ "${XRT_PROG_UNWRAPPED}" "${XRT_LOADER_ARGS[@]}"
+ 

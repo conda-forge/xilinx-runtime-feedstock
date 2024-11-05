@@ -1,0 +1,22 @@
+From 9a7901648941599b7a47fc100a26ee97a7f173ac Mon Sep 17 00:00:00 2001
+From: bryanloz <bryanloz@xilinx.com>
+Date: Sat, 2 Jul 2022 14:42:55 -0600
+Subject: [PATCH 08/16] no version for dkms
+
+---
+ src/CMake/version.cmake | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/src/CMake/version.cmake b/src/CMake/version.cmake
+index 5f32a87dd..445809db0 100644
+--- a/src/CMake/version.cmake
++++ b/src/CMake/version.cmake
+@@ -63,8 +63,3 @@ install(FILES ${CMAKE_BINARY_DIR}/gen/version.json DESTINATION ${XRT_INSTALL_DIR
+ endif()
+ 
+ # This is not required on MPSoC platform. To avoid yocto error, do NOT intall
+-if ((${XRT_NATIVE_BUILD} STREQUAL "yes") AND (NOT WIN32))
+-  # Copied over from dkms.cmake. TODO: cleanup
+-  set (XRT_DKMS_INSTALL_DIR "/usr/src/xrt-${XRT_VERSION_STRING}")
+-  install(FILES ${CMAKE_BINARY_DIR}/gen/version.h DESTINATION ${XRT_DKMS_INSTALL_DIR}/driver/include)
+-endif()
