@@ -1,0 +1,10 @@
+--- orig/src/runtime_src/core/pcie/common/dd.h	2022-04-14 15:29:02
++++ work/src/runtime_src/core/pcie/common/dd.h	2025-12-10 10:32:26
+@@ -21,6 +21,7 @@
+ 
+ #include <string>
+ #include <climits>
++#include <cstdint>
+ 
+ namespace dd {
+ 

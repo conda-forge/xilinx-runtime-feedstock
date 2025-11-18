@@ -1,0 +1,20 @@
+--- orig/src/runtime_src/xdp/profile/database/events/creator/aie_trace_data_logger.h	2022-04-14 15:29:02
++++ work/src/runtime_src/xdp/profile/database/events/creator/aie_trace_data_logger.h	2025-12-10 14:00:44
+@@ -21,6 +21,8 @@
+ #include "xdp/profile/device/aie_trace/aie_trace_logger.h"
+ #include "xdp/profile/database/database.h"
+ 
++#include <cstdint>
++
+ namespace xdp {
+ 
+ class AIETraceDataLogger : public AIETraceLogger
+@@ -36,7 +38,7 @@
+   virtual ~AIETraceDataLogger();
+ 
+   XDP_EXPORT
+-  virtual void addAIETraceData(uint64_t strmIndex, void* buffer, uint64_t bufferSz); 
++  virtual void addAIETraceData(uint64_t strmIndex, void* buffer, uint64_t bufferSz);
+ };
+ 
+ }

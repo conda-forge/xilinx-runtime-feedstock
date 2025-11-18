@@ -25,9 +25,21 @@ source:
     - patches/12_no_setup_script.patch
     - patches/13_fix_appdebug_install.patch
     - patches/14_remove_static_libs.patch
+    - patches/15_add_missing_boost_header.patch
+    - patches/16_missing_cstdint.patch
+    - patches/17_missing_cstdint.patch
+    - patches/18_missing_cstdint.patch
+    - patches/19_missing_cstdint.patch
+    - patches/20_missing_cstdint.patch
+    - patches/21_missing_cstdint.patch
+    - patches/22_missing_cstdint.patch
+    - patches/23_missing_cstdint.patch
+    - patches/24_missing_cstdint.patch
+    - patches/25_missing_cstdint.patch
+    - patches/26_missing_cstdint.patch
 
 build:
-  number: 12
+  number: 13
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm
@@ -39,6 +51,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cmake
     - make  # [unix]
     - pkg-config
@@ -47,7 +60,7 @@ requirements:
   host:
     - python
     - pybind11
-    - libboost-devel
+    - libboost-devel <1.85.0
     - protobuf
     - libprotobuf
     - rapidjson
