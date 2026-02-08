@@ -16,12 +16,10 @@ cxx_compiler_version:
 - '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
-libboost_devel:
-- '1.86'
 libcurl:
 - '8'
 libprotobuf:
-- 5.29.3
+- 6.31.1
 libuuid:
 - '2'
 ncurses:
