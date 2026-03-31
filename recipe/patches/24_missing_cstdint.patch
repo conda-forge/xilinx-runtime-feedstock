@@ -1,0 +1,55 @@
+--- orig/src/runtime_src/xdp/profile/database/events/vtf_event.h	2022-04-14 15:29:02
++++ work/src/runtime_src/xdp/profile/database/events/vtf_event.h	2025-12-10 17:40:37
+@@ -18,6 +18,7 @@
+ #define VTF_EVENT_DOT_H
+ 
+ #include <fstream>
++#include <cstdint>
+ 
+ #include "xdp/config.h"
+ 
+@@ -107,7 +108,7 @@
+     virtual bool isLOPAPI()          { return false ; }
+     virtual bool isHALAPI()          { return false ; }
+     virtual bool isHostEvent()       { return false ; }
+-    virtual bool isNativeHostEvent() { return false ; } 
++    virtual bool isNativeHostEvent() { return false ; }
+     virtual bool isOpenCLHostEvent()
+       { return type == READ_BUFFER  || type == READ_BUFFER_P2P  ||
+                type == WRITE_BUFFER || type == WRITE_BUFFER_P2P ||
+@@ -118,10 +119,10 @@
+                type == WRITE_BUFFER ||
+ 	       type == KERNEL_ENQUEUE ; }
+     virtual bool isDeviceEvent() { return false ; }
+-    virtual bool isReadBuffer()  { return type == READ_BUFFER || 
++    virtual bool isReadBuffer()  { return type == READ_BUFFER ||
+ 	                                  type == READ_BUFFER_P2P ||
+ 	                                  type == LOP_READ_BUFFER ; }
+-    virtual bool isWriteBuffer() { return type == WRITE_BUFFER || 
++    virtual bool isWriteBuffer() { return type == WRITE_BUFFER ||
+ 	                                  type == WRITE_BUFFER_P2P ||
+ 	                                  type == LOP_WRITE_BUFFER ; }
+     virtual bool isCopyBuffer() { return type == COPY_BUFFER ||
+@@ -142,8 +143,8 @@
+       return (l->getTimestamp() < r->getTimestamp()) ;
+     }
+   } ;
+- 
+-  class APICall : public VTFEvent 
++
++  class APICall : public VTFEvent
+   {
+   protected:
+     uint64_t functionName ; // An index into the string table
+@@ -153,9 +154,9 @@
+     XDP_EXPORT APICall(uint64_t s_id, double ts, uint64_t name, VTFEventType ty);
+     XDP_EXPORT ~APICall() ;
+ 
+-    virtual bool isHostEvent() { return true ; } 
++    virtual bool isHostEvent() { return true ; }
+   } ;
+- 
++
+ }
+ 
+ #endif

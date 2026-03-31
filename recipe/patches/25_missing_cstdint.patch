@@ -1,0 +1,19 @@
+--- orig/src/runtime_src/xdp/profile/database/events/device_events.h	2022-04-14 15:29:02
++++ work/src/runtime_src/xdp/profile/database/events/device_events.h	2025-12-10 17:23:45
+@@ -20,6 +20,7 @@
+ #include "xdp/profile/database/events/vtf_event.h"
+ 
+ #include "xdp/config.h"
++#include <cstdint>
+ 
+ namespace xdp {
+ 
+@@ -34,7 +35,7 @@
+ 
+     /* Type dependent Profile Monitor Index
+      * Event type indicates whether the index is for AM, AIM or ASM
+-     */ 
++     */
+     uint32_t monitorId;
+ 
+     VTFDeviceEvent() = delete ;

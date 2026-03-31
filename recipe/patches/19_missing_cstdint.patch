@@ -1,0 +1,10 @@
+--- orig/src/runtime_src/tools/xclbinutil/DTCStringsBlock.h	2022-04-14 15:29:02
++++ work/src/runtime_src/tools/xclbinutil/DTCStringsBlock.h	2025-12-10 11:02:46
+@@ -22,6 +22,7 @@
+ // #includes here - please keep these to a bare minimum!
+ #include <string>
+ #include <sstream>
++#include <cstdint>
+ 
+ // ------------ F O R W A R D - D E C L A R A T I O N S ----------------------
+ // Forward declarations - use these instead whenever possible...

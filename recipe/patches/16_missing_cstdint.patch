@@ -1,0 +1,10 @@
+--- orig/src/runtime_src/core/common/time.h	2022-04-14 15:29:02
++++ work/src/runtime_src/core/common/time.h	2025-12-10 10:23:29
+@@ -19,6 +19,7 @@
+
+ #include "core/common/config.h"
+ #include <string>
++#include <cstdint>
+
+ namespace xrt_core {
+

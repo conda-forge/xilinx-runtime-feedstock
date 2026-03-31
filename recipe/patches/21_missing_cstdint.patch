@@ -1,0 +1,11 @@
+--- orig/src/xma/include/app/xmahw.h	2022-04-14 15:29:02
++++ work/src/xma/include/app/xmahw.h	2025-12-10 12:05:15
+@@ -17,6 +17,8 @@
+ #ifndef _XMA_HW_H_
+ #define _XMA_HW_H_
+ 
++#include <stdint.h>
++
+ #ifdef __cplusplus
+ extern "C" {
+ #endif

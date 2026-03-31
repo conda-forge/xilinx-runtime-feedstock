@@ -1,0 +1,19 @@
+--- orig/src/runtime_src/xdp/profile/device/aie_trace/aie_trace_logger.h	2022-04-14 15:29:02
++++ work/src/runtime_src/xdp/profile/device/aie_trace/aie_trace_logger.h	2025-12-10 14:18:29
+@@ -18,6 +18,7 @@
+ #define XDP_PROFILE_AIE_TRACE_LOGGER_H
+ 
+ #include<iostream>
++#include <cstdint>
+ 
+ namespace xdp {
+ 
+@@ -28,7 +29,7 @@
+   AIETraceLogger() {}
+   virtual ~AIETraceLogger() {}
+ 
+-  virtual void addAIETraceData(uint64_t strmIndex, void* buffer, uint64_t bufferSz) = 0; 
++  virtual void addAIETraceData(uint64_t strmIndex, void* buffer, uint64_t bufferSz) = 0;
+ };
+ 
+ }

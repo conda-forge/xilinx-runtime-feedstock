@@ -1,0 +1,11 @@
+diff -Naur orig/src/runtime_src/core/common/config_reader.cpp work/src/runtime_src/core/common/config_reader.cpp
+--- orig/src/runtime_src/core/common/config_reader.cpp	2025-12-09 19:12:30
++++ work/src/runtime_src/core/common/config_reader.cpp	2025-12-09 19:11:52
+@@ -26,6 +26,7 @@
+
+ #include <boost/property_tree/ptree.hpp>
+ #include <boost/property_tree/ini_parser.hpp>
++#include <boost/filesystem.hpp>
+ #include <boost/filesystem/path.hpp>
+ #include <boost/filesystem/operations.hpp>
+ #include <boost/format.hpp>
