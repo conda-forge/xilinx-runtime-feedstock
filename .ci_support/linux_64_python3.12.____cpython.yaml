@@ -19,7 +19,7 @@ docker_image:
 libcurl:
 - '8'
 libprotobuf:
-- 6.31.1
+- 6.33.5
 libuuid:
 - '2'
 ncurses:
