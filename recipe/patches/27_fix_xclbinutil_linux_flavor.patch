@@ -1,0 +1,16 @@
+--- orig/src/runtime_src/tools/xclbinutil/CMakeLists.txt	2026-09-01 23:01:22
++++ work/src/runtime_src/tools/xclbinutil/CMakeLists.txt	2026-09-01 23:01:22
+@@ -15,12 +15,7 @@
+ 
+ # Windows support coming soon
+ if(NOT WIN32)
+-  # On Ubuntu 16.04 CMake support is limited
+-  if ((${LINUX_FLAVOR} STREQUAL "Ubuntu") AND ("x${LINUX_VERSION}x" STREQUAL "x16.04x"))
+-    set(RapidJSON_VERSION_MAJOR 0)
+-  else()
+-    find_package(RapidJSON REQUIRED)
+-  endif()
++  find_package(RapidJSON REQUIRED)
+ endif()
+ 
+ # Need pthreads for the boost processes

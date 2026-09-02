@@ -1,13 +1,16 @@
-{% set name = "xilinx-runtime" %}
-{% set version = "2.13.466" %}
-{% set quarter = "202210" %}
+schema_version: 1
+
+context:
+  name: xilinx-runtime
+  version: "2.13.466"
+  quarter: 202210
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/Xilinx/XRT/archive/refs/tags/{{ quarter }}.{{ version }}.tar.gz
+  url: https://github.com/Xilinx/XRT/archive/refs/tags/${{ quarter }}.${{ version }}.tar.gz
   sha256: d73d8366f6f6d66bfdcb67e72135f559a4d95644c5416c27dea79c235953fd20
   patches:
     - patches/00_disable_werror.patch
@@ -37,26 +40,22 @@ source:
     - patches/24_missing_cstdint.patch
     - patches/25_missing_cstdint.patch
     - patches/26_missing_cstdint.patch
+    - patches/27_fix_xclbinutil_linux_flavor.patch
 
 build:
-  number: 18
-  skip: true  # [not linux]
-  ignore_run_exports_from:
-    - libdrm
-    - libcurl
-  run_exports:
-    - {{ pin_subpackage(name|lower, max_pin='x.x') }}
+  number: 19
+  skip: not linux
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - {{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
     - cmake
-    - make  # [unix]
+    - if: unix
+      then: make
     - pkg-config
     - git
-
   host:
     - python
     - pybind11
@@ -70,26 +69,32 @@ requirements:
     - libcurl
     - openssl
     - ncurses
-
   run:
     - python
+  run_exports:
+    - ${{ pin_subpackage(name|lower, upper_bound='x.x') }}
+  ignore_run_exports:
+    from_package:
+      - libdrm
+      - libcurl
 
-test:
-  imports:
-    - pyxrt
-  commands:
-    - xbutil --help
-    - xclbinutil --help
+tests:
+  - python:
+      imports:
+        - pyxrt
+      pip_check: false
+  - script:
+      - xbutil --help
+      - xclbinutil --help
 
 about:
-  home: https://www.origin.xilinx.com/products/design-tools/vitis/xrt.html
   license: Apache-2.0
-  license_family: Apache
   license_file: LICENSE
   summary: Xilinx Runtime for Heterogenous Acceleration
   description: Xilinx Runtime for Heterogenous Acceleration
-  dev_url: https://github.com/Xilinx/XRT
-  doc_url: https://xilinx.github.io/XRT
+  homepage: https://www.origin.xilinx.com/products/design-tools/vitis/xrt.html
+  repository: https://github.com/Xilinx/XRT
+  documentation: https://xilinx.github.io/XRT
 
 extra:
   recipe-maintainers:
