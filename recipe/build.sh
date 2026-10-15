@@ -13,7 +13,9 @@ cmake \
   -B $SRC_DIR/build-release  \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_SKIP_INSTALL_RPATH=ON \
-  -DXRT_STATIC_COMPONENT=xrt-static
+  -DXRT_STATIC_COMPONENT=xrt-static \
+  -DPYTHON_INCLUDE_DIR=$PREFIX/include/python${PY_VER} \
+  -DPYTHON_LIBRARY=$PREFIX/lib/libpython${PY_VER}${SHLIB_EXT}
 
 cmake --build $SRC_DIR/build-release --parallel ${CPU_COUNT}
 

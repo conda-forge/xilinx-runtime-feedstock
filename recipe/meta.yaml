@@ -37,9 +37,10 @@ source:
     - patches/24_missing_cstdint.patch
     - patches/25_missing_cstdint.patch
     - patches/26_missing_cstdint.patch
+    - patches/27_lsb_release_fallback.patch
 
 build:
-  number: 18
+  number: 19
   skip: true  # [not linux]
   ignore_run_exports_from:
     - libdrm

@@ -1,0 +1,23 @@
+diff --git a/src/CMake/nativeLnx.cmake b/src/CMake/nativeLnx.cmake
+index f921f1e..2d4c4ee 100644
+--- a/src/CMake/nativeLnx.cmake
++++ b/src/CMake/nativeLnx.cmake
+@@ -44,6 +44,7 @@ endif(GIT_FOUND)
+ find_program(LSB_RELEASE lsb_release)
+ find_program(UNAME uname)
+ 
++if (LSB_RELEASE)
+ execute_process(COMMAND ${LSB_RELEASE} -is
+   OUTPUT_VARIABLE LINUX_FLAVOR
+   OUTPUT_STRIP_TRAILING_WHITESPACE
+@@ -53,6 +54,10 @@ execute_process(COMMAND ${LSB_RELEASE} -rs
+   OUTPUT_VARIABLE LINUX_VERSION
+   OUTPUT_STRIP_TRAILING_WHITESPACE
+ )
++else ()
++cmake_host_system_information(RESULT LINUX_FLAVOR QUERY DISTRIB_ID)
++cmake_host_system_information(RESULT LINUX_VERSION QUERY DISTRIB_VERSION_ID)
++endif ()
+ 
+ execute_process(COMMAND ${UNAME} -r
+   OUTPUT_VARIABLE LINUX_KERNEL_VERSION
